@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pip3 install -r utils/requirements3.txt
+pip3 install -r utils/requirements.txt
 
 if [ ! -d "models" ] 
 then
