@@ -2,17 +2,15 @@ import os
 import sys
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
+
+# Get Spark Session
 spark = SparkSession\
     .builder\
     .appName("PythonSQL")\
-    .master("local[*]") \
+    .master("yarn") \
     .getOrCreate()
 
-## Add the following config if you want to run on the k8s cluster and remove `local[*]`
-#    .config("spark.hadoop.fs.s3a.s3guard.ddb.region","us-east-1")\
-#    .config("spark.yarn.access.hadoopFileSystems","s3a://jfletcher-cdp-bucket/")\
-    
-
+# Schema
 schema = StructType(
   [
     StructField("customerID", StringType(), True),
@@ -38,9 +36,13 @@ schema = StructType(
     StructField("Churn", StringType(), True)
   ]
 )    
-    
+
+# Upload to HDFS
+!hdfs dfs -copyFromLocal raw/WA_Fn-UseC_-Telco-Customer-Churn.csv /tmp/WA_Fn-UseC_-Telco-Customer-Churn.csv
+
+# Read it!    
 telco_data = spark.read.csv(
-  "s3a://jf-tko21-cdp-bucket/jf-tko21-dl/telco/WA_Fn-UseC_-Telco-Customer-Churn.csv",
+  "/tmp/WA_Fn-UseC_-Telco-Customer-Churn.csv",
   header=True,
   schema=schema,
   sep=',',
@@ -51,8 +53,9 @@ telco_data.show()
 
 telco_data.printSchema()
 
+# Save it locally. This operation will fail if you don't have 8GB RAM
 telco_data.coalesce(1).write.csv(
-  "file:/home/cdsw/raw/telco-data/",
+  path="/tmp/telco-data/",
   mode='overwrite',
   header=True
 )
@@ -61,12 +64,11 @@ spark.sql("show databases").show()
 
 spark.sql("show tables in default").show()
 
+# Create table in HDFS as Parquet
+telco_data\
+  .write.format("parquet")\
+  .mode("overwrite")\
+  .saveAsTable('default.telco_churn', path="/tmp/spark-warehouse")
 
-#telco_data\
-#  .write.format("parquet")\
-#  .mode("overwrite")\
-#  .saveAsTable(
-#    'default.telco_churn'
-#)
-
+# Test table
 spark.sql("select * from default.telco_churn").show()
