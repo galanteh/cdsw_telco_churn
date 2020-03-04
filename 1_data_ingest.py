@@ -60,15 +60,16 @@ telco_data.coalesce(1).write.csv(
   header=True
 )
 
-spark.sql("show databases").show()
-
-spark.sql("show tables in default").show()
-
 # Create table in HDFS as Parquet
 telco_data\
   .write.format("parquet")\
   .mode("overwrite")\
   .saveAsTable('default.telco_churn', path="/tmp/spark-warehouse")
+
+# Check tables
+spark.sql("show databases").show()
+spark.sql("show tables in default").show()
+
 
 # Test table
 spark.sql("select * from default.telco_churn").show()
