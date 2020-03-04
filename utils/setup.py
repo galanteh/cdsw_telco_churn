@@ -9,4 +9,3 @@ cd
 !chmod 755 /home/cdsw/cdsw-build.sh
 !bash /home/cdsw/cdsw-build.sh
 !pip3 install Flask==1.1.1
-#!Rscript /home/cdsw/utils/install.R
