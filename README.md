@@ -69,8 +69,12 @@ If you created your own model (see above)
 
 After the Application deploys, click on the blue-arrow next to the name.  The initial view is a table of rows selected at  random from the dataset.  This shows a global view of which features are most important for the predictor model.
 
+![App running](images/app_running.png)
+
 Clicking on any single row will show a "local" interpretabilty of a particular instance.  Here you
 can see how adjusting any one of the features will change the instance's churn prediction.
+
+![App Refractor](images/app_refractor.png)
 
 ## Dataset
 ### [IBM Churn data](https://www.ibm.com/communities/analytics/watson-analytics-blog/predictive-insights-in-the-telco-customer-churn-data-set/)
