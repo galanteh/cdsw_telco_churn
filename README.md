@@ -3,7 +3,7 @@
 This is an exercise based on a Cloudera Machine Learning lab. CML is the CDSW version on the cloud as a service.
 
 ## Requirements
-CDSW installed with your [CDH|HDP|CDP] Cluster
+CDSW installed with your [CDH|HDP|CDP-DC] Cluster
 
 ## Introduction
 
