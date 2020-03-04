@@ -36,6 +36,9 @@ Go to the **Models** section and create a new Explainer model with the following
 * **Input**: `{"StreamingTV":"No","MonthlyCharges":70.35,"PhoneService":"No","PaperlessBilling":"No","Partner":"No","OnlineBackup":"No","gender":"Female","Contract":"Month-to-month","TotalCharges":1397.475,"StreamingMovies":"No","DeviceProtection":"No","PaymentMethod":"Bank transfer (automatic)","tenure":29,"Dependents":"No","OnlineSecurity":"No","MultipleLines":"No","InternetService":"DSL","SeniorCitizen":"No","TechSupport":"No"}`
 * **Kernel**: Python 3
 
+![Creating a model](images/create_model.png)
+
+
 If you created your own model (see above)
 * Click on "Set Environment Variables" and add:
   * **Name**: CHURN_MODEL_NAME
@@ -56,6 +59,8 @@ Go to the **Applications** section and select "New Application" with the followi
 * **Kernel**: Python 3
 * **Engine Profile**: 1vCPU / 2 GiB Memory
 
+![Creating a model](images/create_app.png)
+
 If you created your own model (see above)
 * Add Environment Variables:
   * **Name**: CHURN_MODEL_NAME
@@ -66,20 +71,6 @@ After the Application deploys, click on the blue-arrow next to the name.  The in
 
 Clicking on any single row will show a "local" interpretabilty of a particular instance.  Here you
 can see how adjusting any one of the features will change the instance's churn prediction.
-
-
-** Don't forget** to stop your Models and Experiments once you are done to save resources for your colleagues.
-
-
-## Additional options
-By default this code trains a linear regression model against the IBM dataset.
-There are other datasets and other model types as well.  Set the Project environment variables to try other datasets and models:
-Name              Value
-CHURN_DATASET     telco (default) | ibm | breastcancer | iris
-CHURN_MODEL_TYPE  linear (default) | gb | nonlinear | voting
-
-
-**NOTE** that not all of these options have been fully tested so your mileage may vary.
 
 ## Dataset
 ### [IBM Churn data](https://www.ibm.com/communities/analytics/watson-analytics-blog/predictive-insights-in-the-telco-customer-churn-data-set/)
